@@ -1,0 +1,1165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuizMaster - General Knowledge Quiz</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #101b3c, #263f70);
+    min-height: 100vh;
+    color: #222;
+    padding: 25px 15px;
+}
+
+.container {
+    max-width: 850px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px #0005;
+}
+
+.header {
+    background: linear-gradient(135deg, #4936a5, #2875ce);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #e1e9ff;
+}
+
+.content {
+    padding: 30px;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.info-box {
+    background: #f0f3ff;
+    border-radius: 10px;
+    padding: 15px 8px;
+    text-align: center;
+}
+
+.info-box small {
+    display: block;
+    color: #666;
+    margin-bottom: 7px;
+}
+
+.info-box strong {
+    font-size: 21px;
+    color: #4936a5;
+}
+
+.timer-danger {
+    color: #e53935 !important;
+}
+
+.progress-area {
+    margin-bottom: 25px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 14px;
+}
+
+.progress {
+    height: 9px;
+    background: #e5e5e5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4936a5, #3184e4);
+    transition: width .3s;
+}
+
+.question-card {
+    background: #f8f9ff;
+    border: 1px solid #e4e7f4;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.question-number {
+    color: #4936a5;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.question {
+    font-size: 21px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.options {
+    display: grid;
+    gap: 12px;
+}
+
+.option {
+    border: 2px solid #e0e3ee;
+    background: white;
+    padding: 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.option:hover {
+    border-color: #4936a5;
+    background: #f2f0ff;
+}
+
+.option.selected {
+    border-color: #4936a5;
+    background: #eeebff;
+}
+
+.option input {
+    accent-color: #4936a5;
+    width: 17px;
+    height: 17px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+button {
+    border: none;
+    padding: 13px 25px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.primary {
+    background: #4936a5;
+    color: white;
+}
+
+.secondary {
+    background: #e9eaf1;
+    color: #333;
+}
+
+.danger {
+    background: #e74c3c;
+    color: white;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.start-screen, .result-screen {
+    text-align: center;
+    padding: 35px 15px;
+}
+
+.start-screen h2 {
+    font-size: 27px;
+    color: #4936a5;
+    margin-bottom: 15px;
+}
+
+.start-screen p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.start-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.result-screen h2 {
+    font-size: 30px;
+    color: #4936a5;
+    margin-bottom: 12px;
+}
+
+.score-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #eeebff;
+    border: 9px solid #4936a5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+}
+
+.score-circle strong {
+    font-size: 37px;
+    color: #4936a5;
+}
+
+.score-circle span {
+    color: #666;
+}
+
+.result-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.result-box {
+    background: #f1f3fa;
+    padding: 18px 8px;
+    border-radius: 10px;
+}
+
+.result-box strong {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.correct-color {
+    color: #159957;
+}
+
+.wrong-color {
+    color: #e74c3c;
+}
+
+.skipped-color {
+    color: #e39b20;
+}
+
+.result-message {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.review {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.review h3 {
+    color: #4936a5;
+    margin-bottom: 15px;
+}
+
+.review-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    line-height: 1.7;
+}
+
+.review-item small {
+    color: #666;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.footer {
+    text-align: center;
+    padding: 17px;
+    background: #f0f1f8;
+    color: #777;
+    font-size: 13px;
+}
+
+@media(max-width: 600px) {
+    .content {
+        padding: 18px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .info-box strong {
+        font-size: 17px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    .question-card {
+        padding: 17px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+    .result-details {
+        gap: 7px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>🧠 QuizMaster</h1>
+        <p>Test Your Knowledge • Challenge Yourself</p>
+    </header>
+
+    <main class="content">
+
+        <!-- START SCREEN -->
+        <section id="startScreen" class="start-screen">
+            <div class="start-icon">🎓</div>
+            <h2>General Knowledge Quiz</h2>
+            <p>
+                Welcome to QuizMaster! Test your general knowledge
+                with 20 interesting questions.<br>
+                Each question has 30 seconds and the complete quiz
+                has a total time limit of 10 minutes.
+            </p>
+
+            <button class="primary" id="startButton" onclick="startQuiz()">
+                Start Quiz
+            </button>
+
+            <button class="primary hidden" id="resumeButton" onclick="resumeQuiz()">
+                Resume Quiz
+            </button>
+
+            <p id="savedMessage"></p>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section id="quizScreen" class="hidden">
+
+            <div class="info">
+
+                <div class="info-box">
+                    <small>Question Timer</small>
+                    <strong id="questionTimer">30s</strong>
+                </div>
+
+                <div class="info-box">
+                    <small>Total Time Left</small>
+                    <strong id="totalTimer">10:00</strong>
+                </div>
+
+                <div class="info-box">
+                    <small>Question</small>
+                    <strong id="questionCount">1 / 20</strong>
+                </div>
+
+            </div>
+
+            <div class="progress-area">
+                <div class="progress-text">
+                    <span>Quiz Progress</span>
+                    <span id="progressText">5%</span>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="question-card">
+
+                <div class="question-number" id="questionNumber">
+                    QUESTION 01
+                </div>
+
+                <h2 class="question" id="questionText"></h2>
+
+                <div class="options" id="optionsContainer"></div>
+
+            </div>
+
+            <div class="buttons">
+                <button class="secondary" onclick="confirmExit()">
+                    Exit Quiz
+                </button>
+
+                <button class="primary" id="nextButton" onclick="nextQuestion()">
+                    Next Question →
+                </button>
+
+                <button class="danger hidden" id="finishButton" onclick="finishQuiz()">
+                    Finish Quiz
+                </button>
+            </div>
+
+        </section>
+
+        <!-- RESULT SCREEN -->
+        <section id="resultScreen" class="result-screen hidden">
+
+            <div class="start-icon">🏆</div>
+
+            <h2>Quiz Completed!</h2>
+
+            <p>Your performance summary</p>
+
+            <div class="score-circle">
+                <strong id="finalScore">0/20</strong>
+                <span>Your Score</span>
+            </div>
+
+            <div class="result-details">
+
+                <div class="result-box">
+                    <strong class="correct-color" id="correctCount">0</strong>
+                    <span>Correct</span>
+                </div>
+
+                <div class="result-box">
+                    <strong class="wrong-color" id="wrongCount">0</strong>
+                    <span>Wrong</span>
+                </div>
+
+                <div class="result-box">
+                    <strong class="skipped-color" id="skippedCount">0</strong>
+                    <span>Skipped</span>
+                </div>
+
+            </div>
+
+            <h3 id="performanceText"></h3>
+
+            <p class="result-message" id="resultMessage"></p>
+
+            <button class="primary" onclick="restartQuiz()">
+                🔄 Restart Quiz
+            </button>
+
+            <div class="review">
+                <h3>Answer Review</h3>
+                <div id="reviewContainer"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        © 2026 QuizMaster | General Knowledge Quiz Application
+    </footer>
+
+</div>
+
+<script>
+
+// 20 GENERAL KNOWLEDGE QUESTIONS
+
+const questions = [
+
+{
+question: "What is the capital of India?",
+options: ["Mumbai", "New Delhi", "Chennai", "Kolkata"],
+answer: 1
+},
+
+{
+question: "Which planet is known as the Red Planet?",
+options: ["Venus", "Jupiter", "Mars", "Saturn"],
+answer: 2
+},
+
+{
+question: "Who is known as the Father of the Nation in India?",
+options: ["Jawaharlal Nehru", "Mahatma Gandhi", "Subhas Chandra Bose", "Sardar Patel"],
+answer: 1
+},
+
+{
+question: "Which is the largest ocean in the world?",
+options: ["Indian Ocean", "Atlantic Ocean", "Arctic Ocean", "Pacific Ocean"],
+answer: 3
+},
+
+{
+question: "How many days are there in a leap year?",
+options: ["365", "366", "364", "360"],
+answer: 1
+},
+
+{
+question: "Which animal is known as the King of the Jungle?",
+options: ["Tiger", "Elephant", "Lion", "Leopard"],
+answer: 2
+},
+
+{
+question: "What is the national flower of India?",
+options: ["Rose", "Sunflower", "Lotus", "Jasmine"],
+answer: 2
+},
+
+{
+question: "Which gas do plants absorb from the atmosphere?",
+options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+answer: 1
+},
+
+{
+question: "Which is the smallest continent?",
+options: ["Europe", "Australia", "Africa", "South America"],
+answer: 1
+},
+
+{
+question: "How many colours are there in a rainbow?",
+options: ["Five", "Six", "Seven", "Eight"],
+answer: 2
+},
+
+{
+question: "Which is the fastest land animal?",
+options: ["Horse", "Cheetah", "Lion", "Deer"],
+answer: 1
+},
+
+{
+question: "What is the currency of Japan?",
+options: ["Dollar", "Yuan", "Won", "Yen"],
+answer: 3
+},
+
+{
+question: "Which organ pumps blood throughout the human body?",
+options: ["Brain", "Lungs", "Heart", "Kidney"],
+answer: 2
+},
+
+{
+question: "Who wrote the Indian national anthem?",
+options: ["Rabindranath Tagore", "Bankim Chandra Chatterjee", "Sarojini Naidu", "Premchand"],
+answer: 0
+},
+
+{
+question: "Which is the largest planet in our solar system?",
+options: ["Earth", "Saturn", "Jupiter", "Neptune"],
+answer: 2
+},
+
+{
+question: "What is the chemical symbol of Gold?",
+options: ["Ag", "Au", "Fe", "Go"],
+answer: 1
+},
+
+{
+question: "Which country is famous for the Eiffel Tower?",
+options: ["Italy", "Germany", "France", "Spain"],
+answer: 2
+},
+
+{
+question: "How many players are there in a cricket team on the field?",
+options: ["9", "10", "11", "12"],
+answer: 2
+},
+
+{
+question: "Which is the largest mammal in the world?",
+options: ["Elephant", "Blue Whale", "Giraffe", "Shark"],
+answer: 1
+},
+
+{
+question: "Which instrument is used to measure temperature?",
+options: ["Barometer", "Thermometer", "Speedometer", "Altimeter"],
+answer: 1
+}
+
+];
+
+// QUIZ SETTINGS
+
+const QUESTION_TIME = 30;
+const TOTAL_TIME = 600;
+
+const STORAGE_KEY = "quizmaster_gk_session_v1";
+
+let session = null;
+let timerInterval = null;
+let currentIndex = 0;
+let questionDeadline = 0;
+let totalDeadline = 0;
+let answers = [];
+
+// START QUIZ
+
+function startQuiz() {
+
+    session = {
+        currentIndex: 0,
+        answers: Array(questions.length).fill(null),
+        questionDeadline: Date.now() + QUESTION_TIME * 1000,
+        totalDeadline: Date.now() + TOTAL_TIME * 1000
+    };
+
+    saveSession();
+    showQuiz();
+}
+
+// SAVE SESSION
+
+function saveSession() {
+
+    if (!session) return;
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+
+}
+
+// LOAD SAVED SESSION
+
+function loadSession() {
+
+    try {
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) return null;
+
+        const data = JSON.parse(saved);
+
+        if (
+            !Number.isInteger(data.currentIndex) ||
+            data.currentIndex < 0 ||
+            !Array.isArray(data.answers) ||
+            data.answers.length !== questions.length ||
+            !Number.isFinite(data.questionDeadline) ||
+            !Number.isFinite(data.totalDeadline)
+        ) {
+            localStorage.removeItem(STORAGE_KEY);
+            return null;
+        }
+
+        return data;
+
+    } catch (error) {
+
+        localStorage.removeItem(STORAGE_KEY);
+        return null;
+
+    }
+
+}
+
+// RESUME QUIZ
+
+function resumeQuiz() {
+
+    session = loadSession();
+
+    if (!session) {
+        startQuiz();
+        return;
+    }
+
+    showQuiz();
+
+}
+
+// SHOW QUIZ
+
+function showQuiz() {
+
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.add("hidden");
+    document.getElementById("quizScreen").classList.remove("hidden");
+
+    currentIndex = session.currentIndex;
+    answers = session.answers;
+
+    updateQuestion();
+
+    timerInterval = setInterval(updateTimers, 250);
+
+    updateTimers();
+
+}
+
+// DISPLAY QUESTION
+
+function updateQuestion() {
+
+    if (!session || currentIndex >= questions.length) {
+        finishQuiz();
+        return;
+    }
+
+    const q = questions[currentIndex];
+
+    document.getElementById("questionNumber").textContent =
+        "QUESTION " + String(currentIndex + 1).padStart(2, "0");
+
+    document.getElementById("questionText").textContent = q.question;
+
+    document.getElementById("questionCount").textContent =
+        (currentIndex + 1) + " / " + questions.length;
+
+    const progress = ((currentIndex + 1) / questions.length) * 100;
+
+    document.getElementById("progressBar").style.width = progress + "%";
+
+    document.getElementById("progressText").textContent =
+        Math.round(progress) + "%";
+
+    const container = document.getElementById("optionsContainer");
+
+    container.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+
+        const label = document.createElement("label");
+
+        label.className = "option";
+
+        const input = document.createElement("input");
+
+        input.type = "radio";
+        input.name = "answer";
+        input.value = index;
+
+        if (answers[currentIndex] === index) {
+            input.checked = true;
+            label.classList.add("selected");
+        }
+
+        input.addEventListener("change", function() {
+
+            answers[currentIndex] = index;
+            session.answers = answers;
+
+            saveSession();
+
+            document.querySelectorAll(".option").forEach(item => {
+                item.classList.remove("selected");
+            });
+
+            label.classList.add("selected");
+
+        });
+
+        const text = document.createElement("span");
+        text.textContent = option;
+
+        label.appendChild(input);
+        label.appendChild(text);
+
+        container.appendChild(label);
+
+    });
+
+    const nextButton = document.getElementById("nextButton");
+    const finishButton = document.getElementById("finishButton");
+
+    if (currentIndex === questions.length - 1) {
+
+        nextButton.classList.add("hidden");
+        finishButton.classList.remove("hidden");
+
+    } else {
+
+        nextButton.classList.remove("hidden");
+        finishButton.classList.add("hidden");
+
+    }
+
+    session.currentIndex = currentIndex;
+    saveSession();
+
+}
+
+// MOVE TO NEXT QUESTION
+
+function nextQuestion() {
+
+    if (!session) return;
+
+    if (currentIndex < questions.length - 1) {
+
+        currentIndex++;
+
+        session.currentIndex = currentIndex;
+
+        // Give the next question its own 30 seconds
+        session.questionDeadline = Date.now() + QUESTION_TIME * 1000;
+
+        saveSession();
+
+        updateQuestion();
+        updateTimers();
+
+    } else {
+
+        finishQuiz();
+
+    }
+
+}
+
+// QUESTION AND TOTAL TIMERS
+
+function updateTimers() {
+
+    if (!session) return;
+
+    const now = Date.now();
+
+    let questionRemaining = Math.max(
+        0,
+        Math.ceil((session.questionDeadline - now) / 1000)
+    );
+
+    let totalRemaining = Math.max(
+        0,
+        Math.ceil((session.totalDeadline - now) / 1000)
+    );
+
+    document.getElementById("questionTimer").textContent =
+        questionRemaining + "s";
+
+    document.getElementById("totalTimer").textContent =
+        formatTime(totalRemaining);
+
+    document.getElementById("questionTimer").classList.toggle(
+        "timer-danger",
+        questionRemaining <= 10
+    );
+
+    document.getElementById("totalTimer").classList.toggle(
+        "timer-danger",
+        totalRemaining <= 60
+    );
+
+    // TOTAL TIME OVER
+
+    if (totalRemaining <= 0) {
+
+        finishQuiz();
+        return;
+
+    }
+
+    // QUESTION TIME OVER
+
+    if (questionRemaining <= 0) {
+
+        if (currentIndex < questions.length - 1) {
+
+            currentIndex++;
+
+            session.currentIndex = currentIndex;
+
+            // Continue the next question's timer from the expiry time
+            session.questionDeadline += QUESTION_TIME * 1000;
+
+            saveSession();
+
+            updateQuestion();
+
+        } else {
+
+            finishQuiz();
+
+        }
+
+    }
+
+}
+
+// FORMAT TIMER
+
+function formatTime(seconds) {
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return String(minutes).padStart(2, "0") + ":" +
+           String(remainingSeconds).padStart(2, "0");
+
+}
+
+// EXIT QUIZ
+
+function confirmExit() {
+
+    const confirmLeave = confirm(
+        "Do you want to leave the quiz? Your progress will be saved."
+    );
+
+    if (confirmLeave) {
+
+        clearInterval(timerInterval);
+
+        saveSession();
+
+        session = null;
+
+        document.getElementById("quizScreen").classList.add("hidden");
+        document.getElementById("startScreen").classList.remove("hidden");
+
+        document.getElementById("startButton").classList.add("hidden");
+        document.getElementById("resumeButton").classList.remove("hidden");
+
+        document.getElementById("savedMessage").textContent =
+            "Your quiz progress has been saved. You can resume it anytime.";
+
+    }
+
+}
+
+// FINISH QUIZ
+
+function finishQuiz() {
+
+    if (!session) return;
+
+    clearInterval(timerInterval);
+
+    const finalAnswers = session.answers;
+
+    let correct = 0;
+    let wrong = 0;
+    let skipped = 0;
+
+    questions.forEach((q, index) => {
+
+        if (finalAnswers[index] === null) {
+
+            skipped++;
+
+        } else if (finalAnswers[index] === q.answer) {
+
+            correct++;
+
+        } else {
+
+            wrong++;
+
+        }
+
+    });
+
+    const score = correct;
+
+    document.getElementById("finalScore").textContent =
+        score + "/" + questions.length;
+
+    document.getElementById("correctCount").textContent = correct;
+    document.getElementById("wrongCount").textContent = wrong;
+    document.getElementById("skippedCount").textContent = skipped;
+
+    let performance = "";
+    let message = "";
+
+    if (score >= 18) {
+
+        performance = "Excellent Performance! 🌟";
+        message = "Outstanding! You have excellent general knowledge.";
+
+    } else if (score >= 14) {
+
+        performance = "Very Good! 👏";
+        message = "Great job! Keep learning and improving.";
+
+    } else if (score >= 10) {
+
+        performance = "Good Attempt! 👍";
+        message = "Good effort! A little more practice will help.";
+
+    } else {
+
+        performance = "Keep Practicing! 💪";
+        message = "Don't give up. Learn more and try the quiz again.";
+
+    }
+
+    document.getElementById("performanceText").textContent = performance;
+    document.getElementById("resultMessage").textContent = message;
+
+    // ANSWER REVIEW
+
+    const reviewContainer = document.getElementById("reviewContainer");
+
+    reviewContainer.innerHTML = "";
+
+    questions.forEach((q, index) => {
+
+        const item = document.createElement("div");
+
+        item.className = "review-item";
+
+        const userAnswer = finalAnswers[index];
+
+        let userText = userAnswer === null
+            ? "Not Answered"
+            : q.options[userAnswer];
+
+        let status = userAnswer === null
+            ? "Skipped"
+            : userAnswer === q.answer
+                ? "Correct"
+                : "Wrong";
+
+        item.innerHTML = `
+            <strong>Q${index + 1}. ${q.question}</strong><br>
+            <small>Your Answer: ${escapeHTML(userText)}</small><br>
+            <small>Correct Answer: ${escapeHTML(q.options[q.answer])}</small><br>
+            <strong>${status}</strong>
+        `;
+
+        reviewContainer.appendChild(item);
+
+    });
+
+    // SAVE COMPLETED RESULT
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    session = null;
+
+    document.getElementById("quizScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.remove("hidden");
+
+}
+
+// SAFE TEXT FOR REVIEW
+
+function escapeHTML(value) {
+
+    return String(value).replace(/[&<>"']/g, function(char) {
+
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
+
+        return entities[char];
+
+    });
+
+}
+
+// RESTART QUIZ
+
+function restartQuiz() {
+
+    clearInterval(timerInterval);
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    session = null;
+    currentIndex = 0;
+
+    document.getElementById("resultScreen").classList.add("hidden");
+    document.getElementById("quizScreen").classList.add("hidden");
+    document.getElementById("startScreen").classList.remove("hidden");
+
+    document.getElementById("startButton").classList.remove("hidden");
+    document.getElementById("resumeButton").classList.add("hidden");
+
+    document.getElementById("savedMessage").textContent = "";
+
+}
+
+// CHECK SAVED QUIZ WHEN PAGE OPENS
+
+window.addEventListener("load", function() {
+
+    session = loadSession();
+
+    if (session) {
+
+        document.getElementById("startButton").classList.add("hidden");
+        document.getElementById("resumeButton").classList.remove("hidden");
+
+        document.getElementById("savedMessage").textContent =
+            "A saved quiz was found. Continue where you left off.";
+
+    }
+
+});
+
+// WHEN USER RETURNS TO THE BROWSER
+
+window.addEventListener("focus", function() {
+
+    if (session && !document.getElementById("quizScreen").classList.contains("hidden")) {
+        updateTimers();
+    }
+
+});
+
+</script>
+
+</body>
+</html>

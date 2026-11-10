@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOODORA | Premium Furniture Store</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #faf8f4;
+    color: #29251f;
+}
+
+header {
+    background: #fff;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px #00000010;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #765337;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #b58a5a;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #39332c;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #b58a5a;
+}
+
+.hero {
+    min-height: 530px;
+    background:
+    linear-gradient(90deg, rgba(20,18,15,.78), rgba(20,18,15,.12)),
+    url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 70px 9%;
+    color: white;
+}
+
+.hero-content {
+    max-width: 580px;
+}
+
+.hero small {
+    color: #e4c49e;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 55px;
+    line-height: 1.15;
+    margin: 20px 0;
+}
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    background: #a8794c;
+    color: white;
+    padding: 14px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #765337;
+    transform: translateY(-3px);
+}
+
+.section {
+    padding: 75px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title small {
+    color: #a8794c;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    margin: 12px 0;
+}
+
+.section-title p {
+    color: #777;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.category {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.category img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s;
+}
+
+.category:hover img {
+    transform: scale(1.1);
+}
+
+.category h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 10px 18px;
+    text-align: center;
+    color: white;
+    font-size: 21px;
+    background: linear-gradient(transparent, #000b);
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px #0000000c;
+    transition: .3s;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px #00000018;
+}
+
+.product-card img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 42px;
+}
+
+.price {
+    margin: 14px 0;
+    color: #986a3f;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.cart-btn {
+    display: block;
+    text-align: center;
+    padding: 11px;
+    background: #765337;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cart-btn:hover {
+    background: #a8794c;
+}
+
+.offer {
+    background:
+    linear-gradient(#241b15c9, #241b15c9),
+    url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=85');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 90px 20px;
+}
+
+.offer h2 {
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.offer p {
+    margin-bottom: 25px;
+    font-size: 17px;
+}
+
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 45px;
+}
+
+.about img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.about h2 {
+    font-size: 34px;
+    margin: 15px 0;
+}
+
+.about p {
+    color: #777;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+.features {
+    background: #eee8df;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    gap: 20px;
+    padding: 40px 7%;
+}
+
+.feature h3 {
+    color: #765337;
+    margin-bottom: 8px;
+}
+
+.feature p {
+    font-size: 13px;
+    color: #666;
+}
+
+footer {
+    background: #252019;
+    color: white;
+    padding: 50px 7% 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 35px;
+    margin-bottom: 35px;
+}
+
+footer h3 {
+    color: #d2a77c;
+    margin-bottom: 15px;
+}
+
+footer p, footer a {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 2;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.copyright {
+    border-top: 1px solid #ffffff25;
+    padding-top: 20px;
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+}
+
+@media(max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .hero {
+        min-height: 450px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .section {
+        padding: 50px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 27px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .categories {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .category {
+        height: 160px;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+    }
+
+    .features {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">WOOD<span>ORA.</span></div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#products">Products</a>
+        <a href="#offers">Offers</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <small>WELCOME TO WOODORA</small>
+        <h1>Make Your Home Beautiful & Comfortable</h1>
+        <p>
+            Discover elegant furniture designed for modern living.
+            Transform your home with comfort, quality and timeless style.
+        </p>
+        <a href="#products" class="btn">Explore Products</a>
+    </div>
+</section>
+
+<section class="section" id="categories">
+    <div class="section-title">
+        <small>OUR COLLECTION</small>
+        <h2>Shop By Category</h2>
+        <p>Find the perfect furniture for every corner of your home.</p>
+    </div>
+
+    <div class="categories">
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80" alt="Sofa">
+            <h3>Living Room</h3>
+        </div>
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=80" alt="Bedroom">
+            <h3>Bedroom</h3>
+        </div>
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=80" alt="Dining">
+            <h3>Dining Room</h3>
+        </div>
+
+        <div class="category">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=700&q=80" alt="Office">
+            <h3>Office Furniture</h3>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="products">
+    <div class="section-title">
+        <small>BEST SELLERS</small>
+        <h2>Featured Products</h2>
+        <p>Explore our most popular furniture collections.</p>
+    </div>
+
+    <div class="products">
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80" alt="Luxury Sofa">
+            <div class="product-info">
+                <h3>Luxury Comfort Sofa</h3>
+                <p>Premium fabric sofa with soft cushions and modern design.</p>
+                <div class="price">₹24,999 <span class="old-price">₹29,999</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=80" alt="King Size Bed">
+            <div class="product-info">
+                <h3>King Size Wooden Bed</h3>
+                <p>Elegant wooden bed with a comfortable modern headboard.</p>
+                <div class="price">₹32,499 <span class="old-price">₹38,999</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=80" alt="Dining Table">
+            <div class="product-info">
+                <h3>Modern Dining Table</h3>
+                <p>Stylish dining furniture perfect for family gatherings.</p>
+                <div class="price">₹18,999 <span class="old-price">₹22,999</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=700&q=80" alt="Modern Chair">
+            <div class="product-info">
+                <h3>Designer Lounge Chair</h3>
+                <p>Comfortable accent chair with a beautiful premium finish.</p>
+                <div class="price">₹7,499 <span class="old-price">₹9,499</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=700&q=80" alt="Wardrobe">
+            <div class="product-info">
+                <h3>Premium Wardrobe</h3>
+                <p>Spacious storage design for an organized bedroom.</p>
+                <div class="price">₹21,999 <span class="old-price">₹25,999</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1499933374294-4584851497cc?auto=format&fit=crop&w=700&q=80" alt="Office Desk">
+            <div class="product-info">
+                <h3>Wooden Office Desk</h3>
+                <p>Functional workstation for your home and office.</p>
+                <div class="price">₹9,999 <span class="old-price">₹12,499</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80" alt="Table Lamp">
+            <div class="product-info">
+                <h3>Decorative Table Lamp</h3>
+                <p>Beautiful lighting accessory for your living space.</p>
+                <div class="price">₹2,499 <span class="old-price">₹3,499</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1598300053653-1d3f5c0c0d?auto=format&fit=crop&w=700&q=80" alt="Coffee Table">
+            <div class="product-info">
+                <h3>Modern Coffee Table</h3>
+                <p>Minimal wooden coffee table for a stylish living room.</p>
+                <div class="price">₹5,999 <span class="old-price">₹7,499</span></div>
+                <a href="#contact" class="cart-btn">Enquire Now</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="offer" id="offers">
+    <small>LIMITED TIME OFFER</small>
+    <h2>Up to 40% OFF</h2>
+    <p>Give your home a beautiful makeover with our special collection.</p>
+    <a href="#products" class="btn">Shop Collection</a>
+</section>
+
+<section class="section" id="about">
+    <div class="about">
+        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85" alt="Woodora Interior">
+
+        <div>
+            <small>ABOUT WOODORA</small>
+            <h2>Furniture That Makes Every Moment Special</h2>
+            <p>
+                WOODORA is a modern furniture shopping concept created
+                for people who love beautiful and comfortable homes.
+                We showcase carefully selected furniture for living
+                rooms, bedrooms, dining spaces and offices.
+            </p>
+            <p>
+                Our collection focuses on attractive designs,
+                everyday comfort, useful storage and timeless style.
+            </p>
+            <a href="#products" class="btn">Discover More</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature">
+        <h3>✦ Quality Design</h3>
+        <p>Beautiful and modern furniture styles.</p>
+    </div>
+
+    <div class="feature">
+        <h3>🚚 Easy Delivery</h3>
+        <p>Convenient delivery information.</p>
+    </div>
+
+    <div class="feature">
+        <h3>✓ Great Value</h3>
+        <p>Attractive prices and special offers.</p>
+    </div>
+
+    <div class="feature">
+        <h3>♡ Customer Care</h3>
+        <p>Support for your furniture enquiries.</p>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="footer-content">
+        <div>
+            <h3>WOODORA.</h3>
+            <p>
+                Discover a beautiful collection of furniture
+                and make your home more comfortable.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <p><a href="#home">Home</a></p>
+            <p><a href="#categories">Categories</a></p>
+            <p><a href="#products">Products</a></p>
+            <p><a href="#offers">Offers</a></p>
+        </div>
+
+        <div>
+            <h3>Contact Us</h3>
+            <p>Email: woodora@example.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: Puducherry, India</p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © 2026 WOODORA Furniture Store. All Rights Reserved.
+        <br>Designed for Web Technology Exercise 02.
+    </div>
+</footer>
+
+</body>
+</html>
